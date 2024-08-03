@@ -33,6 +33,7 @@
 ".\objects\interf.o"
 ".\objects\key.o"
 ".\objects\bmp280.o"
+".\objects\si24r1.o"
 ".\objects\applicant.o"
 ".\objects\delay.o"
 --library_type=microlib --strict --scatter ".\Objects\Project.sct"
