@@ -4,6 +4,7 @@
 #include "stm32f10x.h"                  // Device header
 #include "Interf.h"
 #include "Delay.h"
+#include "Si24R1_Reg.h"
 
 
 //引脚定义
@@ -17,21 +18,30 @@
 #define RF_GPIO_PORT GPIOA
 #define RF_CE_PORT   GPIOB
 
+// 定义CONFIG寄存器地址
+#define CONFIG_REG 0x00
+
 #define Hard_SPI_Complie_Set 1  //选择编译选项 硬件SPI OR 软件SPI 
 
 #if Hard_SPI_Complie_Set  //首选项为硬件SPI
 
 // 函数声明
 void GPIO_Init_All(void);
-void SPI_GPIO_Init(void);
 uint8_t SPI_Transfer(uint8_t data);
 void SI24R1_Init(void);
+void SI24R1_WriteReg(uint8_t reg, uint8_t value);
 uint8_t SI24R1_ReadReg(uint8_t reg);
-void SI24R1_ReadPayload(uint8_t *data, uint8_t length);
 
 #else           //第二个选项为软件SPI
 
-
+uint8_t R_IRQ(void);
+void W_Reg(uint8_t Reg,uint8_t Value);
+uint8_t R_Reg(uint8_t Reg);
+void W_Buf(uint8_t Reg , uint8_t* Buf, uint8_t Len);
+void R_Buf(uint8_t Reg , uint8_t* Buf, uint8_t Len);
+void NRF24L01_Init(void);
+void Receive(uint8_t* Buf);
+uint8_t Send(uint8_t* Buf);
 
 #endif
 
